@@ -63,5 +63,15 @@ export function useBooks() {
     })
   }
 
-  return { books, updateStatus }
+  function updatePagesRead(id: string, pagesRead: number): void {
+    setBooks((current) => {
+      const updated = current.map((book) =>
+        book.id === id ? { ...book, pagesRead: Math.min(Math.max(pagesRead, 0), book.totalPages) } : book,
+      )
+      persist(updated)
+      return updated
+    })
+  }
+
+  return { books, updateStatus, updatePagesRead }
 }

@@ -5,9 +5,11 @@ const STATUSES: Status[] = ['to-read', 'reading', 'finished']
 export function BookList({
   books,
   onStatusChange,
+  onPagesReadChange,
 }: {
   books: Book[]
   onStatusChange: (id: string, status: Status) => void
+  onPagesReadChange: (id: string, pagesRead: number) => void
 }) {
   return (
     <ul>
@@ -25,6 +27,13 @@ export function BookList({
               </option>
             ))}
           </select>
+          <input
+            type="number"
+            min={0}
+            max={book.totalPages}
+            value={book.pagesRead}
+            onChange={(e) => onPagesReadChange(book.id, Number(e.target.value))}
+          />
           <span>{book.pagesRead} / {book.totalPages}</span>
         </li>
       ))}
