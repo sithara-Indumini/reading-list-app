@@ -25,3 +25,19 @@ test('loads existing books from localStorage instead of seeding', () => {
 
   expect(result.current.books).toEqual(stored)
 })
+
+test('falls back to seed data when localStorage contains malformed JSON', () => {
+  localStorage.setItem(STORAGE_KEY, '{not valid json')
+
+  const { result } = renderHook(() => useBooks())
+
+  expect(result.current.books).toEqual(mockBooks)
+})
+
+test('falls back to seed data when localStorage contains valid JSON of the wrong shape', () => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ oops: 'not a book array' }))
+
+  const { result } = renderHook(() => useBooks())
+
+  expect(result.current.books).toEqual(mockBooks)
+})
