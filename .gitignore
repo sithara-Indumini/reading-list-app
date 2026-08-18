@@ -1,5 +1,17 @@
 node_modules/
 dist/
+dist-ssr/
+*.local
 .env
 .env.local
 .claude/scheduled_tasks.lock
+
+# Logs
+logs
+*.log
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
