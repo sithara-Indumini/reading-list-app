@@ -1,0 +1,6 @@
+{
+  "enabledPlugins": {
+    "embla-core@embla-claude-plugins": true,
+    "project-setup@embla-claude-plugins": true
+  }
+}
