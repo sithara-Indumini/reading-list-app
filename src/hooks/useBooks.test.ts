@@ -100,3 +100,59 @@ test('updateStatus is a no-op when the book id does not exist', () => {
 
   expect(result.current.books).toEqual(before)
 })
+
+test('updatePagesRead sets pagesRead on the matching book', () => {
+  const { result } = renderHook(() => useBooks())
+
+  act(() => {
+    result.current.updatePagesRead('1', 150)
+  })
+
+  const updated = result.current.books.find((book) => book.id === '1')
+  expect(updated?.pagesRead).toBe(150)
+})
+
+test('updatePagesRead clamps to totalPages when the value is above it', () => {
+  const { result } = renderHook(() => useBooks())
+
+  act(() => {
+    result.current.updatePagesRead('1', 9999)
+  })
+
+  const updated = result.current.books.find((book) => book.id === '1')
+  expect(updated?.pagesRead).toBe(updated?.totalPages)
+})
+
+test('updatePagesRead clamps to 0 when the value is below it', () => {
+  const { result } = renderHook(() => useBooks())
+
+  act(() => {
+    result.current.updatePagesRead('1', -5)
+  })
+
+  const updated = result.current.books.find((book) => book.id === '1')
+  expect(updated?.pagesRead).toBe(0)
+})
+
+test('updatePagesRead persists the change to localStorage immediately', () => {
+  const { result } = renderHook(() => useBooks())
+
+  act(() => {
+    result.current.updatePagesRead('2', 42)
+  })
+
+  const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]') as Book[]
+  const updated = stored.find((book) => book.id === '2')
+  expect(updated?.pagesRead).toBe(42)
+})
+
+test('updatePagesRead is a no-op when the book id does not exist', () => {
+  const { result } = renderHook(() => useBooks())
+  const before = result.current.books
+
+  act(() => {
+    result.current.updatePagesRead('does-not-exist', 10)
+  })
+
+  expect(result.current.books).toEqual(before)
+})
