@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Book } from '../types'
+import type { Book, Status } from '../types'
 import { mockBooks } from '../data/mockBooks'
 
 const STORAGE_KEY = 'reading-list-books'
@@ -44,7 +44,24 @@ function loadOrSeed(): Book[] {
   return seed()
 }
 
+function persist(books: Book[]): void {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(books))
+}
+
 export function useBooks() {
-  const [books] = useState<Book[]>(loadOrSeed)
-  return { books }
+  const [books, setBooks] = useState<Book[]>(loadOrSeed)
+
+  function updateStatus(id: string, status: Status): void {
+    setBooks((current) => {
+      const updated = current.map((book) =>
+        book.id === id
+          ? { ...book, status, pagesRead: status === 'finished' ? book.totalPages : book.pagesRead }
+          : book,
+      )
+      persist(updated)
+      return updated
+    })
+  }
+
+  return { books, updateStatus }
 }
