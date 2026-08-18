@@ -22,7 +22,7 @@ function App() {
   return (
     <main>
       <h1>My Reading List</h1>
-      <label>
+      <label className="filter-bar">
         Filter by status
         <select value={filter} onChange={(e) => setFilter(e.target.value as StatusFilter)}>
           {FILTER_OPTIONS.map((option) => (

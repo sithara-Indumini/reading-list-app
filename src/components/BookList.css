@@ -1,0 +1,87 @@
+.book-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.book-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 2fr) minmax(120px, 1.5fr) 140px 90px minmax(100px, 0.8fr);
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  text-align: left;
+}
+
+.book-title {
+  font-weight: 600;
+  color: var(--text-h);
+  overflow-wrap: anywhere;
+}
+
+.book-author {
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.book-status,
+.book-pages-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
+}
+
+.book-pages-input {
+  text-align: right;
+}
+
+.book-pages-total {
+  text-align: right;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .book-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'title title'
+      'author author'
+      'status pages-input'
+      'pages-total pages-total';
+    row-gap: 0.5rem;
+  }
+
+  .book-title {
+    grid-area: title;
+  }
+
+  .book-author {
+    grid-area: author;
+  }
+
+  .book-status {
+    grid-area: status;
+  }
+
+  .book-pages-input {
+    grid-area: pages-input;
+  }
+
+  .book-pages-total {
+    grid-area: pages-total;
+    text-align: left;
+  }
+}

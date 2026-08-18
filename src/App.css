@@ -1,6 +1,29 @@
 main {
-  max-width: 640px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 2rem 1rem;
   font-family: system-ui, sans-serif;
+  text-align: left;
+}
+
+main > h1 {
+  text-align: center;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+  color: var(--text-h);
+}
+
+.filter-bar select {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
 }
