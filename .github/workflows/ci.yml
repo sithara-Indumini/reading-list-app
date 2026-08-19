@@ -1,3 +1,4 @@
+# CI: lint, build, and test on every PR/push to main
 name: CI
 
 on:
