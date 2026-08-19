@@ -21,15 +21,19 @@ unfinished work rather than a deliberate scope call.
 - `npm run test:watch` — vitest in watch mode
 - Run a single test file: `npx vitest run src/hooks/useBooks.test.ts`
 - Run a single test by name: `npx vitest run -t "clamps to totalPages"`
+- `npm run test:e2e` — run the Playwright suite (`tests/e2e/*.spec.ts`); starts the dev
+  server automatically via `playwright.config.ts`
 
-There is no Playwright setup yet despite the brief requiring two Playwright tests
-(one normal-case, one edge-case) before the Thursday demo — check
-`Docs/epics-and-stories.md` (Story 1.3) before adding it, since that's the story those
-tests are meant to satisfy.
+CI (`.github/workflows/ci.yml`) runs lint, build, `npm test`, and `npm run test:e2e` on
+every PR/push to `main`, plus manual `workflow_dispatch`. It runs on Node 24 — Node 20
+is incompatible with jsdom/undici in this stack, so don't downgrade the CI node-version.
 
 ## Architecture
 
 Everything lives under `src/`, single-page, no router:
+
+End-to-end tests live in `tests/e2e/`, one spec file per story (e.g.
+`4-update-pages-read.spec.ts` for Story 1.3, `6-filter-by-status.spec.ts` for Story 2.1).
 
 - `App.tsx` — owns the status filter (`'all' | Status`) and renders `BookList`.
 - `hooks/useBooks.ts` — the only source of truth for book state. Owns loading/seeding
