@@ -13,13 +13,14 @@ export function BookList({
   onPagesReadChange: (id: string, pagesRead: number) => void
 }) {
   return (
-    <ul className="book-list">
+    <ul className="book-list" data-testid="book-list">
       {books.map((book) => (
-        <li key={book.id} className="book-row">
-          <span className="book-title">{book.title}</span>
-          <span className="book-author">{book.author}</span>
+        <li key={book.id} className="book-row" data-testid={`book-row-${book.id}`}>
+          <span className="book-title" data-testid="book-title">{book.title}</span>
+          <span className="book-author" data-testid="book-author">{book.author}</span>
           <select
             className="book-status"
+            data-testid="book-status"
             value={book.status}
             onChange={(e) => onStatusChange(book.id, e.target.value as Status)}
           >
@@ -31,13 +32,14 @@ export function BookList({
           </select>
           <input
             className="book-pages-input"
+            data-testid="book-pages-input"
             type="number"
             min={0}
             max={book.totalPages}
             value={book.pagesRead}
             onChange={(e) => onPagesReadChange(book.id, Number(e.target.value))}
           />
-          <span className="book-pages-total">{book.pagesRead} / {book.totalPages}</span>
+          <span className="book-pages-total" data-testid="book-pages-total">{book.pagesRead} / {book.totalPages}</span>
         </li>
       ))}
     </ul>

@@ -95,6 +95,26 @@ tool/auth dependency beyond the repo itself.
 - `TASKS.md` in-repo — zero setup, but no Done/In-Progress swimlanes
   and weaker to demo live as a "board."
 
+### 8. localStorage corruption handling: whole-array validation, not per-record repair
+
+`useBooks.ts`'s `isBookArray` validates the entire stored array as one
+unit. A single malformed record fails validation for the whole array,
+discarding all persisted data and re-seeding the mock list — not
+field-by-field repair of just the bad record.
+
+**Alternative not chosen:** per-record validation that keeps good
+records and drops only the malformed one. Rejected because it adds
+real complexity (partial-repair logic, deciding what a "recoverable"
+vs "unrecoverable" record looks like) for a mock-data, single-user,
+no-backend app where the cost of a full re-seed is trivial — the user
+loses some manually-entered progress, but nothing catastrophic, and
+the app never ends up in a half-valid state.
+
+Surfaced while writing Playwright coverage for Story 1.1 (TC-06) — the
+generated test case had assumed graceful field-level degradation; the
+test and issue #2 were corrected to match actual behavior once this
+was found.
+
 ## Data & GDPR Note (section 4.8)
 
 The app has no accounts, no authentication, and no server component of
