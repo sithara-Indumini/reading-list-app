@@ -10,8 +10,7 @@ test.describe('Story 2.1 — Filter my list by status (#6)', () => {
   test('filter control offers All, To Read, Reading, and Finished, in that order', async ({ page }) => {
     // Covers TC-07
     const filter = page.getByLabel('Filter by status')
-    const labels = await filter.locator('option').allTextContents()
-    expect(labels).toEqual(['All', 'To Read', 'Reading', 'Finished'])
+    await expect(filter.locator('option')).toHaveText(['All', 'To Read', 'Reading', 'Finished'])
   })
 
   test('selecting "To Read" shows only to-read books', async ({ page }) => {
