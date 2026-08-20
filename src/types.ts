@@ -1,5 +1,7 @@
 export type Status = 'to-read' | 'reading' | 'finished'
 
+export const STATUSES: Status[] = ['to-read', 'reading', 'finished']
+
 export interface Book {
   id: string
   title: string

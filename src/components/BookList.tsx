@@ -1,7 +1,6 @@
 import type { Book, Status } from '../types'
+import { STATUSES } from '../types'
 import './BookList.css'
-
-const STATUSES: Status[] = ['to-read', 'reading', 'finished']
 
 export function BookList({
   books,

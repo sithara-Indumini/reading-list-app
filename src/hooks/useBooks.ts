@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import type { Book, Status } from '../types'
+import { STATUSES } from '../types'
 import { mockBooks } from '../data/mockBooks'
 
 const STORAGE_KEY = 'reading-list-books'
-const STATUSES: Status[] = ['to-read', 'reading', 'finished']
 
 function isBookArray(value: unknown): value is Book[] {
   return (
@@ -70,7 +70,9 @@ export function useBooks() {
   function updatePagesRead(id: string, pagesRead: number): void {
     setBooks((current) => {
       const updated = current.map((book) =>
-        book.id === id ? { ...book, pagesRead: Math.min(Math.max(pagesRead, 0), book.totalPages) } : book,
+        book.id === id
+          ? { ...book, pagesRead: Math.round(Math.min(Math.max(pagesRead, 0), book.totalPages)) }
+          : book,
       )
       persist(updated)
       return updated

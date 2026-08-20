@@ -156,6 +156,17 @@ test('updatePagesRead clamps to totalPages when the value is above it', () => {
   expect(updated?.pagesRead).toBe(updated?.totalPages)
 })
 
+test('updatePagesRead rounds a non-integer value to the nearest whole page', () => {
+  const { result } = renderHook(() => useBooks())
+
+  act(() => {
+    result.current.updatePagesRead('1', 120.5)
+  })
+
+  const updated = result.current.books.find((book) => book.id === '1')
+  expect(updated?.pagesRead).toBe(121)
+})
+
 test('updatePagesRead clamps to 0 when the value is below it', () => {
   const { result } = renderHook(() => useBooks())
 
