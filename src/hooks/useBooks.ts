@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Book, Status } from '../types'
+import { STATUSES } from '../types'
 import { mockBooks } from '../data/mockBooks'
 
 const STORAGE_KEY = 'reading-list-books'
@@ -16,7 +17,10 @@ function isBookArray(value: unknown): value is Book[] {
         typeof (item as Book).author === 'string' &&
         typeof (item as Book).totalPages === 'number' &&
         typeof (item as Book).pagesRead === 'number' &&
-        typeof (item as Book).status === 'string',
+        Number.isInteger((item as Book).pagesRead) &&
+        (item as Book).pagesRead >= 0 &&
+        (item as Book).pagesRead <= (item as Book).totalPages &&
+        STATUSES.includes((item as Book).status),
     )
   )
 }
@@ -66,7 +70,9 @@ export function useBooks() {
   function updatePagesRead(id: string, pagesRead: number): void {
     setBooks((current) => {
       const updated = current.map((book) =>
-        book.id === id ? { ...book, pagesRead: Math.min(Math.max(pagesRead, 0), book.totalPages) } : book,
+        book.id === id
+          ? { ...book, pagesRead: Math.round(Math.min(Math.max(pagesRead, 0), book.totalPages)) }
+          : book,
       )
       persist(updated)
       return updated

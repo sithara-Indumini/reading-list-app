@@ -115,6 +115,28 @@ generated test case had assumed graceful field-level degradation; the
 test and issue #2 were corrected to match actual behavior once this
 was found.
 
+### 9. `isBookArray` load-time validation, not clamping, closes the gap in decision 5
+
+Decision 5 states the `0 <= pagesRead <= totalPages` clamp "holds
+regardless of entry path" because it's enforced in state-update logic.
+That was true for `updateStatus`/`updatePagesRead`, but not for the
+`localStorage` load path: `isBookArray` originally only checked
+`typeof pagesRead === 'number'` and `typeof status === 'string'`, so a
+stored record with `pagesRead: 9999` or `status: "banana"` loaded
+straight into state unclamped and unvalidated.
+
+The fix is validation, not clamping: `isBookArray` now checks `status`
+against the `Status` union and requires `pagesRead` to be an integer
+within `[0, totalPages]`. A record that fails either check fails
+validation for the whole array (per decision 8) and the app re-seeds,
+rather than coercing the bad value into range. So the invariant now
+holds for the load path too, but via a different mechanism than
+decision 5 describes (reject-and-reseed vs. clamp-in-place) — worth
+keeping distinct rather than folding into decision 5, since a future
+reader relying on decision 5 alone would expect out-of-range load-path
+values to be silently clamped, when they're actually rejected
+wholesale.
+
 ## Data & GDPR Note (section 4.8)
 
 The app has no accounts, no authentication, and no server component of

@@ -42,6 +42,39 @@ test('falls back to seed data when localStorage contains valid JSON of the wrong
   expect(result.current.books).toEqual(mockBooks)
 })
 
+test('falls back to seed data when a stored book has an invalid status', () => {
+  const stored = [
+    { id: '99', title: 'Stored Book', author: 'Someone', totalPages: 100, pagesRead: 10, status: 'banana' },
+  ]
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stored))
+
+  const { result } = renderHook(() => useBooks())
+
+  expect(result.current.books).toEqual(mockBooks)
+})
+
+test('falls back to seed data when a stored book has pagesRead above totalPages', () => {
+  const stored = [
+    { id: '99', title: 'Stored Book', author: 'Someone', totalPages: 100, pagesRead: 9999, status: 'reading' },
+  ]
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stored))
+
+  const { result } = renderHook(() => useBooks())
+
+  expect(result.current.books).toEqual(mockBooks)
+})
+
+test('falls back to seed data when a stored book has a non-integer pagesRead', () => {
+  const stored = [
+    { id: '99', title: 'Stored Book', author: 'Someone', totalPages: 100, pagesRead: 10.5, status: 'reading' },
+  ]
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stored))
+
+  const { result } = renderHook(() => useBooks())
+
+  expect(result.current.books).toEqual(mockBooks)
+})
+
 test('updateStatus changes the status of the matching book', () => {
   const { result } = renderHook(() => useBooks())
 
@@ -121,6 +154,17 @@ test('updatePagesRead clamps to totalPages when the value is above it', () => {
 
   const updated = result.current.books.find((book) => book.id === '1')
   expect(updated?.pagesRead).toBe(updated?.totalPages)
+})
+
+test('updatePagesRead rounds a non-integer value to the nearest whole page', () => {
+  const { result } = renderHook(() => useBooks())
+
+  act(() => {
+    result.current.updatePagesRead('1', 120.5)
+  })
+
+  const updated = result.current.books.find((book) => book.id === '1')
+  expect(updated?.pagesRead).toBe(121)
 })
 
 test('updatePagesRead clamps to 0 when the value is below it', () => {
