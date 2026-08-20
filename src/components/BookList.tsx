@@ -21,6 +21,7 @@ export function BookList({
           <select
             className="book-status"
             data-testid="book-status"
+            aria-label={`Status for ${book.title}`}
             value={book.status}
             onChange={(e) => onStatusChange(book.id, e.target.value as Status)}
           >
@@ -33,6 +34,7 @@ export function BookList({
           <input
             className="book-pages-input"
             data-testid="book-pages-input"
+            aria-label={`Pages read for ${book.title}`}
             type="number"
             min={0}
             max={book.totalPages}
