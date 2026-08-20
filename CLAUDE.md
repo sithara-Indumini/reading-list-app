@@ -61,3 +61,9 @@ Epics/stories/process checklist live in `Docs/epics-and-stories.md`, mirrored on
 GitHub Issues + a Project board (not Jira) — see ADR decision 7. When picking up planned
 work, check that doc and keep the board in sync with what's actually done rather than
 adding parallel tracking elsewhere.
+
+## What Claude should not do here
+
+- When a PR's checks are green and all review threads are resolved, merge it without
+  asking. Only stop for confirmation if a check fails, a thread is unresolved, or the
+  diff touches repo settings or branch protection.
