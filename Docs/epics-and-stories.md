@@ -79,10 +79,10 @@ rather than end-user value.
 
 ### Wednesday
 - [x] Public GitHub repo created for this exercise ([#7](https://github.com/sithara-Indumini/reading-list-app/issues/7), closed)
-- [ ] README that gets someone running the app in under 5 minutes ([#8](https://github.com/sithara-Indumini/reading-list-app/issues/8))
-- [ ] `CLAUDE.md` written (project-specific: stack, commands,
+- [x] README that gets someone running the app in under 5 minutes ([#8](https://github.com/sithara-Indumini/reading-list-app/issues/8), closed)
+- [x] `CLAUDE.md` written (project-specific: stack, commands,
       conventions, what Claude should never do) — living doc, updated
-      through the day ([#9](https://github.com/sithara-Indumini/reading-list-app/issues/9))
+      through the day ([#9](https://github.com/sithara-Indumini/reading-list-app/issues/9), closed)
 - [ ] Existing skills checked/reused before writing any custom skill;
       rationale ready if a custom one was needed ([#10](https://github.com/sithara-Indumini/reading-list-app/issues/10))
 - [ ] `settings.json` configured deliberately; settings hierarchy
@@ -90,8 +90,8 @@ rather than end-user value.
 - [ ] Context-management examples ready: plan mode vs. let-go, fresh
       vs. continued session, `/clear` vs. `/compact`, ≥1 subagent use
       and why ([#12](https://github.com/sithara-Indumini/reading-list-app/issues/12))
-- [ ] Project knowledge (README, ADR, product notes) provided
-      separately from `CLAUDE.md` ([#13](https://github.com/sithara-Indumini/reading-list-app/issues/13))
+- [x] Project knowledge (README, ADR, product notes) provided
+      separately from `CLAUDE.md` ([#13](https://github.com/sithara-Indumini/reading-list-app/issues/13), closed)
 - [x] ADR includes the GDPR/personal-data note (done — see ADR 0001;
       [#14](https://github.com/sithara-Indumini/reading-list-app/issues/14) closed)
 - [x] Epic + user stories created with Claude, board matches reality
@@ -102,10 +102,10 @@ rather than end-user value.
 
 ### Thursday
 - [ ] Wednesday's change request completed and working ([#18](https://github.com/sithara-Indumini/reading-list-app/issues/18))
-- [ ] Outside contributions disabled on the public repo ([#19](https://github.com/sithara-Indumini/reading-list-app/issues/19))
-- [ ] ≥1 PR opened, reviewed by AI, ≥1 comment actually acted on ([#20](https://github.com/sithara-Indumini/reading-list-app/issues/20))
-- [ ] Two Playwright tests written and passing: one normal case, one
-      edge case (see Story 1.3) ([#21](https://github.com/sithara-Indumini/reading-list-app/issues/21))
+- [x] Outside contributions disabled on the public repo ([#19](https://github.com/sithara-Indumini/reading-list-app/issues/19), closed)
+- [x] ≥1 PR opened, reviewed by AI, ≥1 comment actually acted on ([#20](https://github.com/sithara-Indumini/reading-list-app/issues/20), closed)
+- [x] Two Playwright tests written and passing: one normal case, one
+      edge case (see Story 1.3) ([#21](https://github.com/sithara-Indumini/reading-list-app/issues/21), closed)
 - [x] Session log exported via the AI Hub script
       (`AI-SDLC Documents > Session-Export`) and committed to the repo ([#22](https://github.com/sithara-Indumini/reading-list-app/issues/22))
-- [ ] Board still matches what was actually done ([#23](https://github.com/sithara-Indumini/reading-list-app/issues/23))
+- [x] Board still matches what was actually done ([#23](https://github.com/sithara-Indumini/reading-list-app/issues/23), closed)
