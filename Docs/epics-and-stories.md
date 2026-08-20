@@ -106,6 +106,6 @@ rather than end-user value.
 - [ ] ≥1 PR opened, reviewed by AI, ≥1 comment actually acted on ([#20](https://github.com/sithara-Indumini/reading-list-app/issues/20))
 - [ ] Two Playwright tests written and passing: one normal case, one
       edge case (see Story 1.3) ([#21](https://github.com/sithara-Indumini/reading-list-app/issues/21))
-- [ ] Session log exported via the AI Hub script
+- [x] Session log exported via the AI Hub script
       (`AI-SDLC Documents > Session-Export`) and committed to the repo ([#22](https://github.com/sithara-Indumini/reading-list-app/issues/22))
 - [ ] Board still matches what was actually done ([#23](https://github.com/sithara-Indumini/reading-list-app/issues/23))
