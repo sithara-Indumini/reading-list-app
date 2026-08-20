@@ -3,6 +3,7 @@ import type { Book, Status } from '../types'
 import { mockBooks } from '../data/mockBooks'
 
 const STORAGE_KEY = 'reading-list-books'
+const STATUSES: Status[] = ['to-read', 'reading', 'finished']
 
 function isBookArray(value: unknown): value is Book[] {
   return (
@@ -16,7 +17,10 @@ function isBookArray(value: unknown): value is Book[] {
         typeof (item as Book).author === 'string' &&
         typeof (item as Book).totalPages === 'number' &&
         typeof (item as Book).pagesRead === 'number' &&
-        typeof (item as Book).status === 'string',
+        Number.isInteger((item as Book).pagesRead) &&
+        (item as Book).pagesRead >= 0 &&
+        (item as Book).pagesRead <= (item as Book).totalPages &&
+        STATUSES.includes((item as Book).status),
     )
   )
 }

@@ -42,6 +42,39 @@ test('falls back to seed data when localStorage contains valid JSON of the wrong
   expect(result.current.books).toEqual(mockBooks)
 })
 
+test('falls back to seed data when a stored book has an invalid status', () => {
+  const stored = [
+    { id: '99', title: 'Stored Book', author: 'Someone', totalPages: 100, pagesRead: 10, status: 'banana' },
+  ]
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stored))
+
+  const { result } = renderHook(() => useBooks())
+
+  expect(result.current.books).toEqual(mockBooks)
+})
+
+test('falls back to seed data when a stored book has pagesRead above totalPages', () => {
+  const stored = [
+    { id: '99', title: 'Stored Book', author: 'Someone', totalPages: 100, pagesRead: 9999, status: 'reading' },
+  ]
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stored))
+
+  const { result } = renderHook(() => useBooks())
+
+  expect(result.current.books).toEqual(mockBooks)
+})
+
+test('falls back to seed data when a stored book has a non-integer pagesRead', () => {
+  const stored = [
+    { id: '99', title: 'Stored Book', author: 'Someone', totalPages: 100, pagesRead: 10.5, status: 'reading' },
+  ]
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stored))
+
+  const { result } = renderHook(() => useBooks())
+
+  expect(result.current.books).toEqual(mockBooks)
+})
+
 test('updateStatus changes the status of the matching book', () => {
   const { result } = renderHook(() => useBooks())
 
