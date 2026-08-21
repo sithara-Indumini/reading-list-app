@@ -65,5 +65,12 @@ adding parallel tracking elsewhere.
 ## What Claude should not do here
 
 - When a PR's checks are green and all review threads are resolved, merge it without
-  asking. Only stop for confirmation if a check fails, a thread is unresolved, or the
-  diff touches repo settings or branch protection.
+  asking. Stop for confirmation only if: a check fails, a thread is unresolved, the
+  diff touches `.github/workflows/**`, or the change reaches the GitHub repository's
+  own settings (branch protection, interaction limits, visibility, forking) —
+  configured via the Settings UI/API, outside any diff.
+
+  Other in-repo config files (`.mcp.json`, `.claude/**`) are ordinary diffable changes
+  and auto-merge under the normal rule. Workflows are the exception because
+  `build-and-test` is a required check on `main`: a PR that edits it can weaken the
+  gate that's approving it.
